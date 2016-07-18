@@ -23,7 +23,7 @@ model_keyword = 'mnist'
 if model_keyword == 'mnist':
     training_rdd_filename = '%stiny_mnist_train.csv' % directory
     test_filename = '%stiny_mnist_test.csv' % directory
-    local_test_path = '/scratch/tiny_mnist_test.csv'
+    local_test_path = '/projects/ExaHDF5/sshilpika/tensorspark/tiny_mnist_test.csv'
     partitions = 48
     warmup = 2000
     batch_sz = 50
