@@ -19,11 +19,11 @@ import numpy as np
 
 directory = "/projects/ExaHDF5/sshilpika/tensorspark/"
 
-model_keyword = 'higgs'
+model_keyword = 'mnist'
 if model_keyword == 'mnist':
-    training_rdd_filename = '%smnist_train.csv' % directory
-    test_filename = '%smnist_test.csv' % directory
-    local_test_path = '/scratch/mnist_test.csv'
+    training_rdd_filename = '%stiny_mnist_train.csv' % directory
+    test_filename = '%stiny_mnist_test.csv' % directory
+    local_test_path = '/scratch/tiny_mnist_test.csv'
     partitions = 48
     warmup = 2000
     batch_sz = 50
@@ -74,7 +74,7 @@ sc = pyspark.SparkContext(conf=conf)
 
 websocket_port = random.randint(30000, 60000)
 print 'websocket_port %d' % websocket_port
-class ParameterServerWebsocketHandler(tornado.websocket.WebSocketHandler):                                                                                                 
+class ParameterServerWebsocketHandler(tornado.websocket.WebSocketHandler):
 
         def __init__(self, *args, **kwargs):
                 self.server = kwargs.pop('server')
