@@ -190,7 +190,7 @@ def main(warmup_iterations, num_epochs, num_partitions):
 
                 with open(error_rates_path, 'w') as f:
                         f.write('')
-                test_data = test_data_lines[0:100]
+                test_data = test_data_lines[0:4]
 
                 parameter_server = start_parameter_server(model=model, warmup_data=warmup_data, test_data=test_data)
                 #raw_input('Press enter to continue\n')
