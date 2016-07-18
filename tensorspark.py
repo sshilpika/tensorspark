@@ -58,6 +58,7 @@ else:
     sys.exit(1)
 
 t = int(time.time())
+print 'model keyword %s and t %d ' % (model_keyword, t)
 error_rates_path = '/projects/ExaHDF5/sshilpika/tensorspark/error_rates_%s_%d.txt' % (model_keyword, t)
 conf = pyspark.SparkConf()
 #conf.setMaster('yarn')
