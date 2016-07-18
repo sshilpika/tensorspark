@@ -34,7 +34,7 @@ if model_keyword == 'mnist':
 elif model_keyword == 'higgs':
     training_rdd_filename = '%shiggs_train_all.csv' % directory
     test_filename = '%shiggs_test_all.csv' % directory
-    local_test_path = '/scratch/higgs_test_all.csv'
+    local_test_path = '/projects/ExaHDF5/sshilpika/tensorspark/higgs_test_all.csv'
     warmup = 20000
     epochs = 1
     partitions = 64
@@ -45,7 +45,7 @@ elif model_keyword == 'higgs':
 elif model_keyword == 'molecular':
     training_rdd_filename = '%smolecular_train_all.csv' % directory
     test_filename = '%smolecular_test_all.csv' % directory
-    local_test_path = '/scratch/molecular_test_all.csv'
+    local_test_path = '/projects/ExaHDF5/sshilpika/tensorspark/molecular_test_all.csv'
     warmup = 10000
     repartition = True
     epochs = 3
@@ -58,7 +58,7 @@ else:
     sys.exit(1)
 
 t = int(time.time())
-error_rates_path = '/home/ubuntu/error_rates_%s_%d.txt' % (model_keyword, t)
+error_rates_path = '/projects/ExaHDF5/sshilpika/tensorspark/error_rates_%s_%d.txt' % (model_keyword, t)
 conf = pyspark.SparkConf()
 #conf.setMaster('yarn')
 #conf.set('spark.driver.memory', '14g')
