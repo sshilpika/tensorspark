@@ -48,6 +48,8 @@ class TensorSparkWorker(Borg):
 #      self.websock = yield tornado.websocket.websocket_connect("ws://localhost:%d/" % self.websocket_port, connect_timeout=3600)
       import socket
       ip=socket.gethostbyname(socket.gethostname())
+      print(ip+" IP address")
+      print("WEB SOCKET PORT "+self.websocket_port)
       self.websock = yield tornado.websocket.websocket_connect("ws://"+ip+":%d/" % self.websocket_port, connect_timeout=3600)
 
    def train_partition(self, partition):
