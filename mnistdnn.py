@@ -65,7 +65,7 @@ class MnistDNN(ParameterServerModel):
         if batch_size == 0:
             batch_size = len(data)
         for line in data:
-            print('line in process data:::'+str(line))
+            #print('line in process data:::'+str(line))
             if len(line) is 0:
                 print 'Skipping empty line'
                 continue
@@ -93,7 +93,7 @@ class MnistDNN(ParameterServerModel):
         for i in xrange(batch_size):
             try:
                 line = partition.next()
-                print('line in process partition:::'+str(line))
+                #print('line in process partition:::'+str(line))
                 if len(line) is 0:
                     print 'Skipping empty line'
                     continue
