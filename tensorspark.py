@@ -106,6 +106,8 @@ class ParameterServer(threading.Thread):
 
         def warmup(self, data=None):
                 if data is not None:
+                        print('warming up with data'+str(len(data)))
+                        print('class of model:::'+self.model.__class__.__name__)
                         self.model.train_warmup(partition=data, error_rates_filename=error_rates_path)
 
         def run(self):
