@@ -76,7 +76,9 @@ class TensorSparkWorker(Borg):
    def test_partition(self, partition):
       labels, features = self.model.process_partition(partition)
       self.request_parameters()
+      print('RUNNING TEST SELF.MODEL.TEST')
       error_rate = self.model.test(labels, features)
+      print('GET ERROR RATE'+str(error_rate))
       return [error_rate]
       #return [self.test(x) for x in partition]
 
