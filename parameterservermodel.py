@@ -103,7 +103,7 @@ class ParameterServerModel():
    def reset_gradients(self):
        print('reseting gradients in param server model:'+str(self.compute_gradients[0])+' with self.compute_gradients:::'+
        str(len(self.compute_gradients)))
-       print('type of compute gradient:::'+type(self.compute_gradients))
+       print('type of compute gradient:::'+str(type(self.compute_gradients)))
        with self.session.as_default():
          self.gradients = [tf.zeros(g[1].get_shape()).eval() for g in self.compute_gradients]
          self.num_gradients = 0
