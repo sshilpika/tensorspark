@@ -54,8 +54,7 @@ class MnistDNN(ParameterServerModel):
     	minimize = optimizer.minimize(loss)
     	correct_prediction = tf.equal(tf.argmax(guess_y,1), tf.argmax(true_y,1))
     	error_rate = 1 - tf.reduce_mean(tf.cast(correct_prediction, "float"))
-
-	    ParameterServerModel.__init__(self, x, true_y, compute_gradients, apply_gradients, minimize, error_rate, session, batch_size)
+        ParameterServerModel.__init__(self, x, true_y, compute_gradients, apply_gradients, minimize, error_rate, session, batch_size)
 
     def process_data(self, data):
         batch_size = self.batch_size
