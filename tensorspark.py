@@ -119,7 +119,7 @@ def train_partition(partition):
         return parameterwebsocketclient.TensorSparkWorker(model_keyword, batch_sz, websocket_port).train_partition(partition)
 
 def test_partition(partition):
-        print("This is partition"+str(partition))
+        print("This is partition"+str(partition.next()))
         return parameterwebsocketclient.TensorSparkWorker(model_keyword, batch_sz, websocket_port).test_partition(partition)
 
 # you can find the mnist csv files here http://pjreddie.com/projects/mnist-in-csv/
