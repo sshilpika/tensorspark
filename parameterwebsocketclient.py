@@ -51,7 +51,7 @@ class TensorSparkWorker(Borg):
       print(str(ip)+" IP address")
       print("WEB SOCKET PORT "+str(self.websocket_port))
       #print("ws://%s:%d/" % (ip,self.websocket_port))
-      self.websock = yield tornado.websocket.websocket_connect("ws://10.233.100.117:%d/" % (self.websocket_port), connect_timeout=3600)
+      self.websock = yield tornado.websocket.websocket_connect("ws://10.233.100.210:%d/" % (self.websocket_port), connect_timeout=3600)
 
    def train_partition(self, partition):
       while True:
