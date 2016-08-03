@@ -15,7 +15,7 @@ def bias_variable(shape, name):
 class MnistDNN(ParameterServerModel):
     def __init__(self, batch_size, gpu=True):
         #NUM_CORES = 4
-	    self.gpu = gpu
+        self.gpu = gpu
         self.batch_size = batch_size
     	session = tf.InteractiveSession()
     #        session = tf.Session(config=tf.ConfigProto(log_device_placement=True))
