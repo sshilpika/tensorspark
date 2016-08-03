@@ -20,53 +20,22 @@ import numpy as np
 directory = "/projects/ExaHDF5/sshilpika/tensorspark/"
 
 model_keyword = 'mnist'
-if model_keyword == 'mnist':
-    training_rdd_filename = '%stiny_mnist_train.csv' % directory
-    test_filename = '%stiny_mnist_test.csv' % directory
-    local_test_path = '/projects/ExaHDF5/sshilpika/tensorspark/tiny_mnist_test.csv'
-    partitions = 48
-    warmup = 2000
-    batch_sz = 50
-    epochs = 5
-    repartition = True
-    time_lag = 100
-    model = mnistdnn.MnistDNN(batch_sz)
-elif model_keyword == 'higgs':
-    training_rdd_filename = '%shiggs_train_all.csv' % directory
-    test_filename = '%shiggs_test_all.csv' % directory
-    local_test_path = '/projects/ExaHDF5/sshilpika/tensorspark/higgs_test_all.csv'
-    warmup = 20000
-    epochs = 1
-    partitions = 64
-    batch_sz = 128
-    time_lag = 20
-    repartition = True
-    model = higgsdnn.HiggsDNN(batch_sz)
-elif model_keyword == 'molecular':
-    training_rdd_filename = '%smolecular_train_all.csv' % directory
-    test_filename = '%smolecular_test_all.csv' % directory
-    local_test_path = '/projects/ExaHDF5/sshilpika/tensorspark/molecular_test_all.csv'
-    warmup = 10000
-    repartition = True
-    epochs = 3
-    partitions = 128
-    batch_sz = 64
-    time_lag = 130
-    model = moleculardnn.MolecularDNN(batch_sz)
-else:
-    print("KEYWORD HAS TO BE 'mnist', 'higgs' or 'molecular'")
-    sys.exit(1)
+
+training_rdd_filename = '%smnist_train.csv' % directory
+test_filename = '%stiny_mnist_test.csv' % directory
+local_test_path = '/projects/ExaHDF5/sshilpika/tensorspark/mnist_test.csv'
+partitions = 48
+warmup = 2000
+batch_sz = 5
+epochs = 5
+repartition = True
+time_lag = 100
+model = mnistdnn.MnistDNN(batch_sz)
 
 t = int(time.time())
 print 'model keyword %s and t %d ' % (model_keyword, t)
 error_rates_path = '/projects/ExaHDF5/sshilpika/tensorspark/error_rates_%s_%d.txt' % (model_keyword, t)
 conf = pyspark.SparkConf()
-#conf.setMaster('yarn')
-#conf.set('spark.driver.memory', '14g')
-#conf.set('spark.executor.memory', '8g')
-#conf.set('spark.driver.maxResultSize', '14g')
-#conf.set('spark.yarn.am.memory', '10g')
-#conf.set('yarn.nodemanager.resource.memory-mb', '2000')
 conf.setExecutorEnv('LD_LIBRARY_PATH', '/soft/libraries/mpi/mvapich2-2.1/intel/lib:/soft/compilers/gcc/4.9.3/lib64:/soft/compilers/gcc/4.9.3/lib:/soft/visualization/cuda-7.5.18/lib64:/dbhome/db2cat/sqllib/lib64:/dbhome/db2cat/sqllib/lib32')
 conf.setExecutorEnv('PATH', '/soft/libraries/mpi/mvapich2-2.1/intel/bin:/soft/compilers/gcc/4.9.3/bin:/soft/libraries/anaconda/bin:/soft/visualization/cuda-7.5.18/bin:/soft/compilers/java/jdk1.8.0_60/bin:/soft/environment/softenv-1.6.2/bin:/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/X11R6/bin:/soft/buildtools/trackdeps/bin:/dbhome/db2cat/sqllib/bin:/dbhome/db2cat/sqllib/adm:/dbhome/db2cat/sqllib/misc:/usr/lpp/mmfs/bin:/opt/ibutils/bin')
 #conf.setExecutorEnv('HADOOP_CONF_DIR', '/usr/local/hadoop/etc/hadoop')
@@ -148,6 +117,7 @@ def train_partition(partition):
         return parameterwebsocketclient.TensorSparkWorker(model_keyword, batch_sz, websocket_port).train_partition(partition)
 
 def test_partition(partition):
+        print(partition)
         return parameterwebsocketclient.TensorSparkWorker(model_keyword, batch_sz, websocket_port).test_partition(partition)
 
 # you can find the mnist csv files here http://pjreddie.com/projects/mnist-in-csv/
@@ -166,6 +136,7 @@ def test_all():
         #testing_rdd = sc.textFile('%shiggs_test_all.csv' % directory)
         #testing_rdd = sc.textFile('%smolecular_test_all.csv' % directory)
         mapped_testing = testing_rdd.mapPartitions(test_partition)
+        print('before reduce')
         return mapped_testing.reduce(add)/mapped_testing.getNumPartitions()
 
 
@@ -198,14 +169,15 @@ def main(warmup_iterations, num_epochs, num_partitions):
                 #training_rdd = training_rdd.subtract(sc.parallelize(warmup_data))
                 train_epochs(num_epochs, training_rdd, num_partitions)
 #               save_model()
-#                test_results = test_all()
-#               sc.show_profiles()
-#                t = time.time()
-#                with open(error_rates_path, 'a') as f:
-#                        f.write('%f , %f\ndone' % (t, test_results))
-#                print test_results
+                print('testing now')
+                test_results = test_all()
+                #sc.show_profiles()
+                t = time.time()
+                with open(error_rates_path, 'a') as f:
+                        f.write('%f , %f\ndone' % (t, test_results))
+                print test_results
                 print 'done'
-#                return test_results
+                return test_results
         finally:
                 tornado.ioloop.IOLoop.current().stop()
 
