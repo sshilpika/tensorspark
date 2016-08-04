@@ -25,9 +25,11 @@ class ParameterServerModel():
       self.gradient_counter = tf.Variable(initial_value=0, trainable=False)
 
       self.parameter_assignments = [None]*len(self.compute_gradients)
+      print('COMPUTE GRADIENT IN PARAMSERVER::::'+str(self.compute_gradients))
       for i in xrange(len(self.compute_gradients)):
           gradient = self.compute_gradients[i][0]
           variable = self.compute_gradients[i][1]
+          print('GRADIENT:::::'+str(gradient)+'VARIABLE::::'+str(variable))
           self.parameter_assignments[i] = variable.assign(gradient)
       self.session.run(tf.initialize_all_variables())
 
