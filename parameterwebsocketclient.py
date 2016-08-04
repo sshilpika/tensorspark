@@ -74,20 +74,22 @@ class TensorSparkWorker(Borg):
       #return [self.train(x) for x in partition]
 
    def test_partition(self, partition):
+      print('self model test partition in CLIENT!!!! :::::'+str(self.model))
       labels, features = self.model.process_partition(partition)
       self.request_parameters()
       print('RUNNING TEST SELF.MODEL.TEST')
       error_rate = self.model.test(labels, features)
       print('GET ERROR RATE'+str(error_rate))
-      return [error_rate]
-      #return [self.test(x) for x in partition]
+      #return [error_rate]
+      return [self.test(x) for x in partition]
 
    def test(self, data):
-      #print 'TensorSparkWorker().test "%s"' % data
+      print('TensorSparkWorker().test "%s"' % data)
       if len(data) is 0:
          return 1.0
       self.request_parameters()
       accuracy = self.model.test(data)
+      print("TESTING IN CLIENT FOR ACCURACY!!!::::")
       return accuracy
 #      self.model.
 
@@ -107,6 +109,7 @@ class TensorSparkWorker(Borg):
       # more like receive parameters now
         parameters = yield self.websock.read_message()
         parameters = self.model.deserialize(parameters)
+        print("REQUEST PARAMS NOW ::::"+ parameters)
         self.model.assign_parameters(parameters)
 
    def push_gradients(self):

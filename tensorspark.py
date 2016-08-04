@@ -56,6 +56,7 @@ class ParameterServerWebsocketHandler(tornado.websocket.WebSocketHandler):
         def send_parameters(self):
                 self.lock.acquire()
                 parameters = self.model.get_parameters()
+                print('tensorspark sending parameters:::'+str(parameters))
                 self.lock.release()
                 serialized = self.model.serialize(parameters)
                 self.write_message(serialized, binary=True)
