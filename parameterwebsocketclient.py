@@ -109,7 +109,7 @@ class TensorSparkWorker(Borg):
       # more like receive parameters now
         parameters = yield self.websock.read_message()
         parameters = self.model.deserialize(parameters)
-        print("REQUEST PARAMS NOW ::::"+ parameters)
+        print("REQUEST PARAMS NOW ::::"+ str(parameters))
         self.model.assign_parameters(parameters)
 
    def push_gradients(self):
