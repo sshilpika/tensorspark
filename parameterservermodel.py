@@ -40,6 +40,7 @@ class ParameterServerModel():
       return self.y_.get_shape().as_list()[1]
 
    def train(self, labels, features):
+      print('THIS IS TRAIN IN PARAM SERVER MODEL::::'+str(self.num_gradients))
       with self.session.as_default():
 
         feed = {self.x: features, self.y_: labels}
