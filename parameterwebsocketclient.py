@@ -89,7 +89,7 @@ class TensorSparkWorker(Borg):
          return 1.0
       self.request_parameters()
       accuracy = self.model.test(data)
-      print("TESTING IN CLIENT FOR ACCURACY!!!::::")
+      print("TESTING IN CLIENT FOR ACCURACY!!!::::"+accuracy)
       return accuracy
 #      self.model.
 
