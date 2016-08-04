@@ -25,6 +25,7 @@ class ParameterServerModel():
       self.gradient_counter = tf.Variable(initial_value=0, trainable=False)
       print("Session:::"+str(session))
       print('self graph:::'+str(self.graph))
+      print('this is the INIT in paramservermodel::::'+str(error_rate))
       self.parameter_assignments = [None]*len(self.compute_gradients)
       #print('COMPUTE GRADIENT IN PARAMSERVER::::'+str(self.compute_gradients))
       for i in xrange(len(self.compute_gradients)):
@@ -53,6 +54,7 @@ class ParameterServerModel():
          #return error_rate
 
    def test(self, labels, features):
+      print('this is the test in paramservermodel::::'+str(error_rate))
       with self.session.as_default():
 
          feed = {self.x: features, self.y_: labels}

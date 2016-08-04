@@ -7,15 +7,11 @@ import tornado.ioloop
 import tornado.websocket
 import os
 import mnistdnn
-import higgsdnn
-import moleculardnn
 import tensorflow as tf
 import time
 import random
 import cStringIO
 import numpy as np
-#from memory_profiler import profile
-#import sys
 
 directory = "/projects/ExaHDF5/sshilpika/tensorspark/"
 
