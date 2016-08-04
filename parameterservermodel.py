@@ -55,7 +55,7 @@ class ParameterServerModel():
          #return error_rate
 
    def test(self, labels, features):
-      print('this is the test in paramservermodel::::'+str(error_rate))
+      print('this is the test in paramservermodel::::'+str(self.error_rate))
       with self.session.as_default():
 
          feed = {self.x: features, self.y_: labels}
